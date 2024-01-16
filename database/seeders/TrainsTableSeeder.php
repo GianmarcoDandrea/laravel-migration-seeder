@@ -19,18 +19,19 @@ class TrainsTableSeeder extends Seeder
         for ($i=0; $i < 50; $i++) { 
             
             $train = new Train();
-            $train->company = $faker->words();
+            $train->company = $faker->words(1, true);
             $train->train_code = $faker->regexify('[A-Z]{5}[0-4]{3}');
-            $train->departure_station = $faker->words();
-            $train->arrival_station = $faker->words();
-            $train->departure_date = $faker->words();
-            $train->departure_time = $faker->words();
-            $train->arrival_date = $faker->words();
-            $train->arrival_time = $faker->words();
-            $train->carriage_number = $faker->numbersBetween(3, 12);
-            $train->platform_number = $faker->numbersBetween(1, 24);
-            $train->on_time = $faker->$faker->numbersBetween(0, 1);
-            $train->delayed = $faker->numbersBetween(0, 1);
+            $train->departure_station = $faker->words(1, true);
+            $train->arrival_station = $faker->words(1, true);
+            $train->departure_date = $faker->dateTimeBetween('now' ,'+18 hour');
+            $train->departure_time = $faker->dateTimeInInterval('now' ,'+2 hour');
+            $train->arrival_date = $faker->dateTimeBetween('+1 day' ,'+2 day');
+            $train->arrival_time = $faker->dateTimeInInterval('+2 hour' ,'+4 hours');;
+            $train->carriage_number = $faker->numberBetween(3, 12);
+            $train->platform_number = $faker->numberBetween(1, 24);
+            $train->on_time = $faker->numberBetween(0, 1);
+            $train->delayed = $faker->numberBetween(0, 1);
+            $train->save();
         }
         }
 }

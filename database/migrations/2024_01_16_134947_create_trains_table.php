@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('train_code', 20);
             $table->string('departure_station', 100);
             $table->string('arrival_station', 100);
-            $table->dateTime('departure_date');
+            $table->date('departure_date',);
             $table->time('departure_time');
-            $table->dateTime('arrival_date');
+            $table->date('arrival_date',);
             $table->time('arrival_time');
             $table->smallInteger('carriage_number')->unsigned();
             $table->smallInteger('platform_number')->unsigned();
