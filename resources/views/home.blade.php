@@ -5,54 +5,44 @@
         <h2 class="my-3 fs-2">
             Train on Departure on 16 Jenuary 2024
         </h2>
-        <ul class="row">
-            @foreach ($trains as $train)
-                <li class="my-2 fs-5">
-                    <div class="col d-flex flex-wrap">
-                        <span class="me-3">
-                            <span class="title">
-                                Train ID:
-                            </span>
-                            {{ $train->train_code }}
-                        </span>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Company</th>
+                    <th scope="col">Train ID</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Time Of Departure</th>
+                    <th scope="col">Time Of Arrival</th>
+                    <th scope="col">Platform</th>
+                    <th scope="col">State</th>
 
-                        <span class="me-3">
-                            <span class="title">
-                                From :
-                            </span>
-                            {{ $train->departure_station }}
-                        </span>
-
-                        <span class="me-3">
-                            <span class="title">
-                                To :
-                            </span>
-                            {{ $train->arrival_station }}
-                        </span>
-
-                        <span class="me-3">
-                            <span class="title">
-                                Time Of Departure:
-                            </span>
-                            {{ $train->departure_time }}
-                        </span>
-
-                        <span class="me-3">
-                            <span class="title">
-                                Time Of Arrival:
-                            </span>
-                            {{ $train->arrival_time }}
-                        </span>
-
-                        <span class="me-3">
-                            <span class="title">
-                                Platform:
-                            </span>
-                            {{ $train->platform_number }}
-                        </span>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($trains as $train)
+                    <tr>
+                        <th scope="row"> {{ $train->company }}</th>
+                        <th>{{ $train->train_code }}</th>
+                        <th>{{ $train->departure_station }}</th>
+                        <th>{{ $train->arrival_station }}</th>
+                        <th>{{ $train->departure_time }}</th>
+                        <th>{{ $train->arrival_time }}</th>
+                        <th>{{ $train->platform_number }}</th>
+                        <th>
+                            @if ($train->delayed === 1 && $train->on_time === 0)
+                                Canceled
+                            @else
+                                @if ($train->delayed === 0 && $train->on_time === 1)
+                                    Late
+                                @else
+                                    On Time
+                                @endif
+                            @endif
+                        </th>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection

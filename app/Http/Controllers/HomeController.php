@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index() {
         $today = Carbon::today()->format('Y-m-d');
-        $trains = Train::where('departure_date', '=', $today)->get();
-        return view('trains.index', compact('trains'));
+        $trains = Train::where('departure_date', '=', $today)->orderBy('departure_time')->get();
+        return view('home', compact('trains'));
     }
 };
 
