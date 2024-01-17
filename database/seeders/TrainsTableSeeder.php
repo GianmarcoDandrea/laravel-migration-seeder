@@ -17,12 +17,19 @@ class TrainsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i=0; $i < 50; $i++) { 
+
+            $companies = ['Trenitalia', 'Italo'];
+            $stations = ['Roma', 'Milano','Napoli','Bologna','Firenze','Torino'];
             
             $train = new Train();
-            $train->company = $faker->words(1, true);
+            $train->company = $faker->randomElement($companies);
             $train->train_code = $faker->regexify('[A-Z]{5}[0-4]{3}');
-            $train->departure_station = $faker->words(1, true);
-            $train->arrival_station = $faker->words(1, true);
+            $train->departure_station = $faker->randomElement($stations);
+            do{
+                $train->arrival_station = $faker->randomElement($stations);
+                
+            } while($train->departure_station === $train->arrival_station);
+
             $train->departure_date = $faker->dateTimeBetween('now' ,'+18 hour');
             $train->departure_time = $faker->dateTimeInInterval('now' ,'+2 hour');
             $train->arrival_date = $faker->dateTimeBetween('+1 day' ,'+2 day');
@@ -33,5 +40,5 @@ class TrainsTableSeeder extends Seeder
             $train->delayed = $faker->numberBetween(0, 1);
             $train->save();
         }
-        }
+    }
 }
